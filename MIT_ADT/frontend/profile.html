@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Manage your local KisanSaathi demo profile, language preference, theme and voice commands.">
+    <meta name="theme-color" content="#fffdf5">
+    <title>Profile &amp; settings — KisanSaathi Demo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/config.js" defer></script>
+    <script src="js/demo-data.js" defer></script>
+    <script src="js/mock-api.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/settings.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="app-header">
+      <div class="app-header-inner">
+        <a class="brand" href="index.html" aria-label="KisanSaathi home">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M32.5 7.5C20 7.5 10 12 10 22.5c0 5.5 4 9 9 9 10.5 0 13.5-12 13.5-24Z" fill="currentColor"/><path d="M8 33c4.4-8.6 10.2-13.7 19-18" stroke="#FFFDF5" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <span class="brand-name">Kisan<span>Saathi</span></span>
+        </a>
+        <button class="app-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="app-navigation" data-mobile-toggle>☰</button>
+        <nav class="app-navigation" id="app-navigation" aria-label="Profile navigation">
+          <a class="app-nav-link" href="farmer-dashboard.html">Farmer dashboard</a>
+          <a class="app-nav-link" href="seller-dashboard.html">Seller workspace</a>
+          <a class="app-nav-link is-active" href="profile.html">Profile &amp; settings</a>
+        </nav>
+        <div class="app-header-actions"><button class="icon-button theme-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme"><span aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button><a class="avatar-link" href="#profile-form" aria-label="Edit profile"><span class="avatar-initials" data-profile-initials>AN</span></a></div>
+      </div>
+    </header>
+    <main id="main-content" class="dashboard-main settings-main">
+      <div class="demo-banner"><span class="demo-badge"><span aria-hidden="true">●</span> DEMO MODE</span><span>Profile preferences are saved only in this browser.</span><button class="banner-action" type="button" data-sign-out>Exit demo</button></div>
+      <section class="dashboard-hero settings-hero"><div class="dashboard-hero-copy"><p class="eyebrow">Your preferences</p><h1>Profile &amp; settings</h1><p>Personalize this local demo experience.</p></div></section>
+      <div class="settings-grid">
+        <section class="panel settings-panel" aria-labelledby="profile-title">
+          <div class="panel-heading"><span class="panel-icon profile-panel-icon" aria-hidden="true">◎</span><div><h2 id="profile-title">Demo profile</h2><p>These details stay on this device; they are not sent to a server.</p></div></div>
+          <form id="profile-form" class="form-grid">
+            <label class="form-field"><span>Name</span><input name="name" required maxlength="60"></label>
+            <label class="form-field"><span>Email <small>(demo only)</small></span><input name="email" type="email" maxlength="120" autocomplete="off"></label>
+            <label class="form-field"><span>Role</span><select name="role"><option value="farmer">Farmer</option><option value="seller">Seller / buyer</option></select></label>
+            <label class="form-field"><span>District / location</span><input name="district" maxlength="80" placeholder="e.g. Nashik, Maharashtra"></label>
+            <label class="form-field field-full"><span>Crops you grow <small>(comma-separated)</small></span><input name="crops" maxlength="160" placeholder="Wheat, tomato"></label>
+            <button class="button button-primary form-submit" type="submit">Save local profile</button>
+          </form>
+        </section>
+        <section class="panel settings-panel" aria-labelledby="preferences-title">
+          <div class="panel-heading"><span class="panel-icon preference-panel-icon" aria-hidden="true">⚙</span><div><h2 id="preferences-title">App preferences</h2><p>Your choices are stored locally for this demo.</p></div></div>
+          <label class="setting-row"><span><strong>Language preference</strong><small>For future localized guidance and assistant responses</small></span><select id="language-setting" aria-label="Preferred language"><option value="en">English</option><option value="hi">हिन्दी (Hindi)</option><option value="mr">मराठी (Marathi)</option><option value="bn">বাংলা (Bengali)</option></select></label>
+          <div class="setting-row"><span><strong>Display theme</strong><small>Choose a comfortable light or dark appearance</small></span><button class="button button-outline" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme"><span aria-hidden="true">◐</span> <span data-theme-label>Dark mode</span></button></div>
+          <div class="setting-note"><span aria-hidden="true">ⓘ</span><p>Language preference is saved for this demo; most interface copy is currently in English. No account, language service or backend is connected.</p></div>
+        </section>
+        <section class="panel settings-panel voice-panel" aria-labelledby="voice-title">
+          <div class="panel-heading"><span class="panel-icon voice-panel-icon" aria-hidden="true">♬</span><div><h2 id="voice-title">Voice commands</h2><p>Optional browser speech recognition, when supported and permitted.</p></div></div>
+          <div class="voice-controls"><button class="button button-primary" id="voice-start" type="button"><span aria-hidden="true">●</span> Start listening</button><span class="voice-status" id="voice-status" role="status">Microphone is off.</span></div>
+          <p class="voice-result" id="voice-result" aria-live="polite">Try: “open irrigation”, “compare offers”, or “show schemes”. You can also navigate using the links above.</p>
+          <div class="voice-shortcuts"><button type="button" data-voice-command="open irrigation">Open irrigation</button><button type="button" data-voice-command="compare offers">Compare offers</button><button type="button" data-voice-command="show schemes">Show schemes</button></div>
+        </section>
+        <section class="panel demo-info-panel" aria-labelledby="demo-info-title">
+          <p class="eyebrow">A note about this prototype</p><h2 id="demo-info-title">Sample content, clearly labelled.</h2>
+          <ul><li>No real authentication or accounts.</li><li>No API, database, MCP server or AI model calls.</li><li>Offers and scheme cards are illustrative only.</li><li>Calculator output depends on your supplied inputs.</li></ul>
+          <button class="button button-outline" type="button" data-sign-out>Exit demo profile</button>
+        </section>
+      </div>
+      <footer class="app-footer"><span>© <span data-current-year></span> KisanSaathi</span><span>Local demo · No backend connection</span><a href="index.html">Welcome page</a></footer>
+    </main>
+    <div class="chat-widget" data-chat-widget>
+      <section class="chat-panel" id="chat-panel" aria-label="KisanSaathi demo assistant" hidden>
+        <header class="chat-header"><div><strong>Field companion</strong><span>Demo assistant · Scripted replies</span></div><button type="button" class="chat-close" data-chat-close aria-label="Close assistant">×</button></header>
+        <div class="chat-messages" data-chat-messages aria-live="polite" aria-relevant="additions"></div>
+        <div class="chat-suggestions"><button type="button" data-chat-suggestion="How do I estimate irrigation volume?">Irrigation</button><button type="button" data-chat-suggestion="What should I know about schemes?">Schemes</button></div>
+        <form class="chat-form" data-chat-form><label class="sr-only" for="chat-input">Ask the demo assistant</label><input id="chat-input" name="message" maxlength="400" placeholder="Ask a farming question…" required><button type="submit" aria-label="Send message">↑</button></form>
+        <p class="chat-disclaimer">Sample responses only. Not a live AI service or expert advice.</p>
+      </section>
+      <button type="button" class="chat-launcher" aria-expanded="false" aria-controls="chat-panel" data-chat-launcher><span aria-hidden="true">✳</span><span>Ask Saathi</span></button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,349 @@
+@media (max-width: 1120px) {
+  .app-header-inner {
+    gap: 14px;
+  }
+
+  .app-navigation {
+    gap: 1px;
+  }
+
+  .app-nav-link {
+    padding-inline: 8px;
+    font-size: 0.76rem;
+  }
+
+  .theme-button > span[data-theme-label] {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-header-inner {
+    width: min(100% - 34px, 780px);
+  }
+
+  .app-menu-toggle {
+    display: inline-grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid #e1e7dc;
+    border-radius: 10px;
+    background: white;
+    color: var(--green-dark);
+    cursor: pointer;
+    font-size: 1.15rem;
+  }
+
+  .app-navigation {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    padding: 10px 18px 16px;
+    border-bottom: 1px solid #e4e9df;
+    background: #fffdf5;
+    box-shadow: 0 15px 24px rgb(23 77 53 / 9%);
+  }
+
+  .app-navigation.is-open {
+    display: flex;
+  }
+
+  .app-nav-link {
+    padding: 12px;
+    font-size: 0.84rem;
+  }
+
+  .app-header-actions {
+    margin-left: auto;
+  }
+
+  .dashboard-main {
+    width: min(100% - 34px, 780px);
+  }
+
+  .crop-grid,
+  .offer-grid,
+  .scheme-grid,
+  .listing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .voice-panel {
+    grid-column: auto;
+  }
+
+  .auth-card {
+    width: min(700px, 100%);
+    grid-template-columns: 0.82fr 1.18fr;
+  }
+
+  .auth-intro {
+    padding: 35px 27px;
+  }
+
+  .auth-form-wrap {
+    padding: 32px 27px;
+  }
+}
+
+@media (max-width: 620px) {
+  .app-header-inner {
+    min-height: 66px;
+  }
+
+  .app-header-inner .brand-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .app-header-inner .brand-name {
+    font-size: 1.06rem;
+  }
+
+  .dashboard-main {
+    width: calc(100% - 30px);
+  }
+
+  .demo-banner {
+    flex-wrap: wrap;
+    gap: 6px 9px;
+    padding: 10px 11px;
+    font-size: 0.68rem;
+  }
+
+  .demo-banner > a,
+  .banner-action {
+    margin-left: 0;
+  }
+
+  .dashboard-hero {
+    min-height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 19px;
+    padding-block: 32px 25px;
+  }
+
+  .dashboard-hero h1 {
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+  }
+
+  .season-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin-bottom: 34px;
+  }
+
+  .stat-card {
+    min-height: 88px;
+    padding: 15px 17px;
+  }
+
+  .stat-card strong {
+    font-size: 1.2rem;
+  }
+
+  .content-section {
+    margin-bottom: 42px;
+  }
+
+  .section-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 17px;
+  }
+
+  .section-title-row h2 {
+    font-size: 1.48rem;
+  }
+
+  .toolbar {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .toolbar .compact-filter {
+    flex: 1;
+  }
+
+  .toolbar select {
+    width: 100%;
+    padding-right: 25px;
+  }
+
+  .crop-grid,
+  .offer-grid,
+  .scheme-grid,
+  .listing-grid,
+  .calculator-grid,
+  .seller-columns,
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crop-guide-copy,
+  .scheme-card > p:not(.scheme-type) {
+    min-height: auto;
+  }
+
+  .panel,
+  .request-panel {
+    padding: 17px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-full {
+    grid-column: auto;
+  }
+
+  .form-submit {
+    width: 100%;
+  }
+
+  .season-card {
+    padding: 13px 15px;
+  }
+
+  .seller-hero-art {
+    width: 100%;
+    min-height: 125px;
+  }
+
+  .app-footer {
+    min-height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 17px;
+  }
+
+  .chat-widget {
+    right: 14px;
+    bottom: 13px;
+  }
+
+  .chat-panel {
+    width: min(390px, calc(100vw - 28px));
+    height: min(570px, calc(100vh - 96px));
+  }
+
+  .chat-launcher {
+    min-height: 47px;
+  }
+
+  .auth-main {
+    min-height: calc(100vh - 66px);
+    padding: 24px 15px;
+  }
+
+  .auth-card {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+
+  .auth-intro {
+    padding: 27px 24px 23px;
+  }
+
+  .auth-mark {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 19px;
+  }
+
+  .auth-intro h1 {
+    font-size: 2rem;
+  }
+
+  .auth-intro > p:not(.eyebrow) {
+    margin-block: 11px 16px;
+    font-size: 0.78rem;
+  }
+
+  .auth-form-wrap {
+    padding: 22px 20px 25px;
+  }
+
+  .app-back-link {
+    font-size: 0.72rem;
+  }
+
+  .settings-hero {
+    min-height: 142px;
+  }
+
+  .setting-row {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: 13px;
+  }
+
+  .voice-controls {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-header-inner {
+    width: calc(100% - 22px);
+    gap: 8px;
+  }
+
+  .app-header-inner .brand {
+    gap: 6px;
+  }
+
+  .avatar-link,
+  .avatar-initials {
+    width: 33px;
+    height: 33px;
+  }
+
+  .app-menu-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .dashboard-main {
+    width: calc(100% - 24px);
+  }
+
+  .demo-banner {
+    font-size: 0.63rem;
+  }
+
+  .form-field input,
+  .form-field select {
+    font-size: 0.75rem;
+  }
+
+  .role-option {
+    gap: 8px;
+    padding: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

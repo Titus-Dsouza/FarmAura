@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore the KisanSaathi seller demo with sample crop listings and a local purchase request form.">
+    <meta name="theme-color" content="#fffdf5">
+    <title>Seller workspace — KisanSaathi Demo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/config.js" defer></script>
+    <script src="js/demo-data.js" defer></script>
+    <script src="js/mock-api.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/seller.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="app-header">
+      <div class="app-header-inner">
+        <a class="brand" href="index.html" aria-label="KisanSaathi home">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M32.5 7.5C20 7.5 10 12 10 22.5c0 5.5 4 9 9 9 10.5 0 13.5-12 13.5-24Z" fill="currentColor"/><path d="M8 33c4.4-8.6 10.2-13.7 19-18" stroke="#FFFDF5" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <span class="brand-name">Kisan<span>Saathi</span></span>
+        </a>
+        <button class="app-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="app-navigation" data-mobile-toggle>☰</button>
+        <nav class="app-navigation" id="app-navigation" aria-label="Seller navigation">
+          <a class="app-nav-link" href="farmer-dashboard.html">Farmer view</a>
+          <a class="app-nav-link is-active" href="#seller-home">Seller workspace</a>
+          <a class="app-nav-link" href="#purchase-request">Purchase requests</a>
+          <a class="app-nav-link" href="#available-listings">Crop listings</a>
+        </nav>
+        <div class="app-header-actions">
+          <button class="icon-button theme-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme"><span aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button>
+          <a class="avatar-link" href="profile.html" aria-label="Open profile and settings"><span class="avatar-initials" data-profile-initials>AN</span></a>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" class="dashboard-main">
+      <div class="demo-banner"><span class="demo-badge"><span aria-hidden="true">●</span> DEMO MODE</span><span>Illustrative records only — no real listings, offers or transactions.</span><a href="profile.html">About this demo</a></div>
+      <section class="dashboard-hero seller-hero" id="seller-home">
+        <div class="dashboard-hero-copy"><p class="eyebrow">Seller / buyer workspace</p><h1>Find the right crop, <span>with clarity.</span></h1><p>Explore example farmer listings and try a local purchase request.</p><div class="location-line"><span aria-hidden="true">▤</span> Sample marketplace · No real transactions</div></div>
+        <div class="seller-hero-art" aria-hidden="true"><span>✳</span><strong>From field<br>to market</strong><i>DEMO</i></div>
+      </section>
+      <section class="content-section" id="purchase-request" aria-labelledby="request-title">
+        <div class="section-title-row"><div><p class="eyebrow">Try the local demo flow</p><h2 id="request-title">Create a purchase request</h2><p class="section-subtitle">Your request stays in this browser and is not sent to farmers.</p></div></div>
+        <div class="seller-columns">
+          <article class="panel request-panel">
+            <form id="purchase-request-form" class="form-grid">
+              <label class="form-field"><span>Crop</span><select name="crop" required><option value="">Choose a crop</option><option>Wheat</option><option>Tomato</option><option>Onion</option><option>Soybean</option></select></label>
+              <label class="form-field"><span>Quantity required (quintals)</span><input type="number" name="quantity" min="0.1" max="100000" step="0.1" required placeholder="e.g. 10"></label>
+              <label class="form-field"><span>Maximum price per quintal (₹)</span><input type="number" name="maxPrice" min="1" max="10000000" step="1" required placeholder="e.g. 2500"></label>
+              <label class="form-field"><span>Preferred location</span><input name="location" maxlength="80" placeholder="e.g. Nashik" required></label>
+              <label class="form-field field-full"><span>Quality or additional requirements <small>(optional)</small></span><textarea name="requirements" rows="3" maxlength="240" placeholder="e.g. clean, dry produce"></textarea></label>
+              <button class="button button-primary form-submit" type="submit">Find matching sample listings <span aria-hidden="true">→</span></button>
+            </form>
+          </article>
+          <aside class="panel request-aside">
+            <span class="aside-icon" aria-hidden="true">✳</span><h3>How this demo works</h3>
+            <ol><li>Enter the crop and the quantity you need.</li><li>Matching illustrative listings appear below.</li><li>Review price, location and quality details.</li></ol>
+            <p>Submitting does not contact a farmer, reserve produce or create a binding purchase.</p>
+          </aside>
+        </div>
+        <div class="request-results" id="request-results" aria-live="polite" hidden></div>
+      </section>
+      <section class="content-section" id="available-listings" aria-labelledby="listings-title">
+        <div class="section-title-row">
+          <div><p class="eyebrow">Illustrative marketplace</p><h2 id="listings-title">Available crop listings</h2><p class="section-subtitle">Demo records · Not live inventory or binding offers</p></div>
+          <div class="toolbar">
+            <label class="compact-filter"><span class="sr-only">Filter listings by crop</span><select id="listing-crop-filter"><option value="all">All crops</option></select></label>
+            <label class="compact-filter"><span class="sr-only">Sort listings</span><select id="listing-sort"><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="quantity-desc">Quantity: high to low</option></select></label>
+          </div>
+        </div>
+        <div class="listing-grid" id="farmer-listings" aria-live="polite"><div class="loading-card" role="status">Loading example listings…</div></div>
+      </section>
+      <section class="content-section" aria-labelledby="requests-title">
+        <div class="section-title-row"><div><p class="eyebrow">Stored on this device</p><h2 id="requests-title">My demo requests</h2><p class="section-subtitle">Requests created during this browser demo.</p></div></div>
+        <div class="request-list" id="my-requests" aria-live="polite"></div>
+      </section>
+      <footer class="app-footer"><span>© <span data-current-year></span> KisanSaathi</span><span>Local demo · No backend connection</span><a href="index.html">Welcome page</a></footer>
+    </main>
+    <div class="chat-widget" data-chat-widget>
+      <section class="chat-panel" id="chat-panel" aria-label="KisanSaathi demo assistant" hidden>
+        <header class="chat-header"><div><strong>Field companion</strong><span>Demo assistant · Scripted replies</span></div><button type="button" class="chat-close" data-chat-close aria-label="Close assistant">×</button></header>
+        <div class="chat-messages" data-chat-messages aria-live="polite" aria-relevant="additions"></div>
+        <div class="chat-suggestions"><button type="button" data-chat-suggestion="How should I compare buyer offers?">Compare offers</button><button type="button" data-chat-suggestion="How do I estimate irrigation volume?">Irrigation</button></div>
+        <form class="chat-form" data-chat-form><label class="sr-only" for="chat-input">Ask the demo assistant</label><input id="chat-input" name="message" maxlength="400" placeholder="Ask a farming question…" required><button type="submit" aria-label="Send message">↑</button></form>
+        <p class="chat-disclaimer">Sample responses only. Not a live AI service or expert advice.</p>
+      </section>
+      <button type="button" class="chat-launcher" aria-expanded="false" aria-controls="chat-panel" data-chat-launcher><span aria-hidden="true">✳</span><span>Ask Saathi</span></button>
+    </div>
+  </body>
+</html>

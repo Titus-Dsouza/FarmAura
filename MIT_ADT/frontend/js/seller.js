@@ -3,15 +3,25 @@
 const app = window.KisanSaathi;
 let listings = [];
 
+function quantityInQuintals(listing) {
+  const factor = listing.unit === "kg" ? 0.01 : listing.unit === "tonne" ? 10 : 1;
+  return Number(listing.quantity) * factor;
+}
+
+function pricePerQuintal(listing) {
+  const factor = listing.priceUnit === "kg" ? 100 : listing.priceUnit === "tonne" ? 0.1 : 1;
+  return Number(listing.price) * factor;
+}
+
 function renderListings() {
   const grid = document.getElementById("farmer-listings");
   if (!grid) return;
   const filter = document.getElementById("listing-crop-filter")?.value || "all";
   const sort = document.getElementById("listing-sort")?.value || "price-asc";
-  const filtered = listings.filter((listing) => filter === "all" || listing.crop === filter);
-  filtered.sort((a, b) => sort === "price-desc" ? b.price - a.price
-    : sort === "quantity-desc" ? b.quantity - a.quantity
-      : a.price - b.price);
+  const filtered = listings.filter((listing) => filter === "all" || listing.crop.toLowerCase() === filter.toLowerCase());
+  filtered.sort((a, b) => sort === "price-desc" ? pricePerQuintal(b) - pricePerQuintal(a)
+    : sort === "quantity-desc" ? quantityInQuintals(b) - quantityInQuintals(a)
+      : pricePerQuintal(a) - pricePerQuintal(b));
   if (!filtered.length) {
     grid.innerHTML = '<div class="empty-state"><strong>No example listings match.</strong><p>Choose a different crop filter to view the demo records.</p></div>';
     return;
@@ -19,9 +29,9 @@ function renderListings() {
   grid.innerHTML = filtered.map((listing) => `<article class="listing-card">
     <div class="listing-card-top"><span class="listing-crop-symbol" aria-hidden="true">⌁</span><span class="status-pill status-demo">Demo listing</span></div>
     <h3>${app.escapeHtml(listing.crop)}</h3><p class="offer-location">${app.escapeHtml(listing.farmer)} · ${app.escapeHtml(listing.location)}</p>
-    <div class="listing-price"><strong>₹${Number(listing.price).toLocaleString("en-IN")}</strong><span>/ quintal asking price</span></div>
-    <div class="listing-availability"><span>Available quantity</span><strong>${Number(listing.quantity).toLocaleString("en-IN")} quintals</strong></div>
-    <details class="listing-details"><summary>View listing details</summary><dl><div><dt>Quality</dt><dd>${app.escapeHtml(listing.quality)}</dd></div><div><dt>Harvest</dt><dd>${app.escapeHtml(listing.harvest)}</dd></div><div><dt>Location</dt><dd>${app.escapeHtml(listing.location)}</dd></div><div><dt>Notice</dt><dd>Illustrative record, not real inventory</dd></div></dl></details>
+    <div class="listing-price"><strong>₹${Number(listing.price).toLocaleString("en-IN")}</strong><span>/ ${app.escapeHtml(listing.priceUnit || listing.unit || "quintal")} asking price</span></div>
+    <div class="listing-availability"><span>Available quantity</span><strong>${Number(listing.quantity).toLocaleString("en-IN")} ${app.escapeHtml(listing.unit || "quintal")}${listing.unit ? "" : "s"}</strong></div>
+    <details class="listing-details"><summary>View listing details</summary><dl><div><dt>Quality / details</dt><dd>${app.escapeHtml(listing.quality || listing.description || "Farmer-provided demo listing")}</dd></div><div><dt>Harvest / availability</dt><dd>${app.escapeHtml(listing.availabilityDate || listing.harvest)}</dd></div><div><dt>Location</dt><dd>${app.escapeHtml(listing.location)}</dd></div><div><dt>Notice</dt><dd>Illustrative record, not real inventory</dd></div></dl></details>
   </article>`).join("");
 }
 
@@ -53,7 +63,7 @@ function renderMatches(matches, request) {
     target.innerHTML = `<div class="section-title-row"><div><p class="eyebrow">Matching sample listings</p><h2>No matches for these filters</h2><p class="section-subtitle">No ${app.escapeHtml(request.crop)} demo listing meets both your quantity and price limits. Try adjusting the request.</p></div></div><div class="empty-state"><strong>Nothing matched this time.</strong><p>These are only a few illustrative records, not a live marketplace.</p></div>`;
     return;
   }
-  target.innerHTML = `<div class="section-title-row"><div><p class="eyebrow">Matching sample listings</p><h2>${matches.length} illustrative match${matches.length === 1 ? "" : "es"}</h2><p class="section-subtitle">Crop: ${app.escapeHtml(request.crop)} · Up to ${Number(request.maxPrice).toLocaleString("en-IN")} / quintal</p></div><a class="text-link" href="#available-listings">View all listings ↓</a></div><div class="listing-grid">${matches.map((listing) => `<article class="listing-card match-card"><div class="listing-card-top"><span class="listing-crop-symbol" aria-hidden="true">⌁</span><span class="status-pill status-best">Matches demo request</span></div><h3>${app.escapeHtml(listing.crop)}</h3><p class="offer-location">${app.escapeHtml(listing.farmer)} · ${app.escapeHtml(listing.location)}</p><div class="listing-price"><strong>₹${Number(listing.price).toLocaleString("en-IN")}</strong><span>/ quintal asking price</span></div><div class="listing-availability"><span>Available quantity</span><strong>${Number(listing.quantity).toLocaleString("en-IN")} quintals</strong></div><p class="match-quality">${app.escapeHtml(listing.quality)} · ${app.escapeHtml(listing.harvest)}</p><small>Example listing only — no contact or transaction is available.</small></article>`).join("")}</div>`;
+  target.innerHTML = `<div class="section-title-row"><div><p class="eyebrow">Matching sample listings</p><h2>${matches.length} illustrative match${matches.length === 1 ? "" : "es"}</h2><p class="section-subtitle">Crop: ${app.escapeHtml(request.crop)} · Up to ${Number(request.maxPrice).toLocaleString("en-IN")} / quintal</p></div><a class="text-link" href="#available-listings">View all listings ↓</a></div><div class="listing-grid">${matches.map((listing) => `<article class="listing-card match-card"><div class="listing-card-top"><span class="listing-crop-symbol" aria-hidden="true">⌁</span><span class="status-pill status-best">Matches demo request</span></div><h3>${app.escapeHtml(listing.crop)}</h3><p class="offer-location">${app.escapeHtml(listing.farmer)} · ${app.escapeHtml(listing.location)}</p><div class="listing-price"><strong>₹${Number(listing.price).toLocaleString("en-IN")}</strong><span>/ ${app.escapeHtml(listing.priceUnit || listing.unit || "quintal")} asking price</span></div><div class="listing-availability"><span>Available quantity</span><strong>${Number(listing.quantity).toLocaleString("en-IN")} ${app.escapeHtml(listing.unit || "quintal")}${listing.unit ? "" : "s"}</strong></div><p class="match-quality">${app.escapeHtml(listing.quality || listing.description || "Farmer-provided demo listing")} · ${app.escapeHtml(listing.availabilityDate || listing.harvest)}</p><small>Example listing only — no contact or transaction is available.</small></article>`).join("")}</div>`;
 }
 
 document.getElementById("listing-crop-filter")?.addEventListener("change", renderListings);
@@ -74,9 +84,9 @@ document.getElementById("purchase-request-form")?.addEventListener("submit", (ev
     createdAt: new Date().toLocaleString()
   };
   const matches = listings.filter((listing) =>
-    listing.crop === request.crop &&
-    listing.quantity >= request.quantity &&
-    listing.price <= request.maxPrice
+    listing.crop.toLowerCase() === request.crop.toLowerCase() &&
+    quantityInQuintals(listing) >= request.quantity &&
+    pricePerQuintal(listing) <= request.maxPrice
   );
   const requests = app.store.read("purchase-requests", []);
   requests.unshift(request);

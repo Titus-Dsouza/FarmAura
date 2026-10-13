@@ -74,11 +74,13 @@ window.KisanSaathi.demoData = {
     { id: "activity-3", title: "Seasonal input support", detail: "Demo scheme card viewed", date: "2 days ago" }
   ],
   assistantReplies: {
+    soil: "Soil condition can vary across a field, and I can’t see or test your soil. For more relevant general guidance, share your crop, location, soil type if known, and any recent soil-test results. A local soil test or agricultural expert is the right source for field-specific nutrient advice.",
     irrigation: "I can help with a simple water-volume calculation. One millimetre of water over one acre is about 4,047 litres. This is a unit conversion only—not a crop irrigation recommendation. Check crop, soil, weather and local guidance before deciding when or how much to irrigate.",
     fertilizer: "For a transparent estimate, use the application rate from a soil test or a qualified local recommendation. The calculator multiplies your supplied rate by field area; it does not choose a recommended rate.",
+    cropCare: "Crop care depends on the crop, growth stage, location and what you observe. Share those details and describe when the issue began. I can offer general considerations, but I can’t diagnose a crop or verify field conditions; for concerning symptoms, ask a local agricultural expert.",
     harvest: "Harvest timing depends on crop variety, local conditions and maturity. Use the crop guide as a checklist, inspect several parts of the field, and ask a local agricultural expert if you see concerning symptoms.",
     offers: "The offers on this demo are illustrative records, not current market prices or real buyer commitments. Compare quantity, grade, payment and transport conditions as well as the listed price.",
     schemes: "Scheme cards in this demo are placeholders, not verified government programmes. Check current eligibility, deadlines and application steps on an official government source or with your local agriculture office.",
-    general: "I’m the KisanSaathi demo assistant. I can explain the sample crop guidance, calculators, offer comparison and scheme cards. I don’t connect to an AI service or provide live prices, weather or verified scheme advice."
+    general: "I’m SOILY, FarmAura’s soil and farming assistant. This demo can explain its sample crop guides, calculators, illustrative offers and scheme placeholders. Replies are scripted; there is no connected AI service, soil test, live weather or verified scheme information. Tell me your crop and what you’re trying to do, and I’ll point you to the relevant demo tool."
   }
 };

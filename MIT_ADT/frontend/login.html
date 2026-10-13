@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Choose a KisanSaathi demo experience. This page does not create an account or send credentials.">
-    <meta name="theme-color" content="#fffdf5">
-    <title>Choose your experience — KisanSaathi Demo</title>
+    <meta name="description" content="Explore the FarmAura local demo. Real sign-in and registration are not connected yet.">
+    <meta name="theme-color" content="#FFFCF6">
+    <meta property="og:site_name" content="FarmAura">
+    <title>Explore FarmAura — Local Demo</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -16,13 +18,13 @@
     <script src="js/app.js" defer></script>
     <script src="js/auth.js" defer></script>
   </head>
-  <body class="app-page">
+  <body class="app-page auth-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="app-header">
       <div class="app-header-inner">
-        <a class="brand" href="index.html" aria-label="KisanSaathi home">
+        <a class="brand" href="index.html" aria-label="FarmAura home">
           <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M32.5 7.5C20 7.5 10 12 10 22.5c0 5.5 4 9 9 9 10.5 0 13.5-12 13.5-24Z" fill="currentColor"/><path d="M8 33c4.4-8.6 10.2-13.7 19-18" stroke="#FFFDF5" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-          <span class="brand-name">Kisan<span>Saathi</span></span>
+          <span class="brand-name">FarmAura</span>
         </a>
         <a class="app-back-link" href="index.html">← Back to welcome</a>
       </div>
@@ -31,33 +33,33 @@
       <section class="auth-card" aria-labelledby="auth-title">
         <div class="auth-intro">
           <span class="auth-mark" aria-hidden="true">✳</span>
-          <p class="eyebrow">KisanSaathi interactive demo</p>
-          <h1 id="auth-title">Welcome to your farm's companion.</h1>
-          <p>Choose a demo role to explore the farmer or seller experience. No account is created and no credentials are sent or saved.</p>
-          <div class="demo-notice"><span aria-hidden="true">ⓘ</span> Demo mode · Works without a backend</div>
+          <p class="eyebrow">FarmAura · Local preview</p>
+          <h1 id="auth-title">A simpler way to explore.</h1>
+          <p>Real sign-in and registration are not available yet because the Django authentication backend is not connected. Continue only to explore this local demo.</p>
+          <div class="demo-notice"><span aria-hidden="true">ⓘ</span> Demo access only · No account or session</div>
         </div>
         <div class="auth-form-wrap">
           <div class="auth-tabs" role="tablist" aria-label="Choose demo access mode">
-            <button class="auth-tab is-active" id="demo-login-tab" type="button" role="tab" aria-selected="true" aria-controls="demo-login-panel">Continue as demo</button>
-            <button class="auth-tab" id="demo-signup-tab" type="button" role="tab" aria-selected="false" aria-controls="demo-signup-panel">Create a profile</button>
+            <button class="auth-tab is-active" id="demo-login-tab" type="button" role="tab" aria-selected="true" aria-controls="demo-login-panel">Explore the demo</button>
+            <button class="auth-tab" id="demo-signup-tab" type="button" role="tab" aria-selected="false" aria-controls="demo-signup-panel">Local demo profile</button>
           </div>
           <section id="demo-login-panel" role="tabpanel" aria-labelledby="demo-login-tab">
             <form id="demo-login-form" class="form-stack">
-              <label class="field-label">Choose your experience</label>
+              <label class="field-label">Choose a demo workspace</label>
               <div class="role-options">
                 <label class="role-option">
                   <input type="radio" name="demo-role" value="farmer" checked>
                   <span class="role-option-icon" aria-hidden="true">🌱</span>
-                  <span><strong>Farmer</strong><small>Crop tools, offers and schemes</small></span>
+                  <span><strong>Farmer</strong><small>Crop guidance, calculators and schemes</small></span>
                 </label>
                 <label class="role-option">
                   <input type="radio" name="demo-role" value="seller">
                   <span class="role-option-icon" aria-hidden="true">▤</span>
-                  <span><strong>Seller / buyer</strong><small>Purchase requests and listings</small></span>
+                  <span><strong>Retailer</strong><small>Illustrative produce listings</small></span>
                 </label>
               </div>
-              <button class="button button-primary button-full" type="submit">Open demo dashboard <span aria-hidden="true">→</span></button>
-              <p class="form-footnote">No password needed for the local prototype.</p>
+              <button class="button button-primary button-full" type="submit">Continue to demo <span aria-hidden="true">→</span></button>
+              <p class="form-footnote">This does not authenticate you. It only opens a local demo workspace.</p>
             </form>
           </section>
           <section id="demo-signup-panel" role="tabpanel" aria-labelledby="demo-signup-tab" hidden>
@@ -67,23 +69,23 @@
                 <input name="name" autocomplete="name" required maxlength="60" placeholder="e.g. Ananya Patil">
               </label>
               <label class="form-field">
-                <span>Choose your experience</span>
+                <span>Choose a demo workspace</span>
                 <select name="role" required>
                   <option value="farmer">Farmer</option>
-                  <option value="seller">Seller / buyer</option>
+                  <option value="seller">Retailer</option>
                 </select>
               </label>
               <label class="check-field">
                 <input name="demo-acknowledgement" type="checkbox" required>
-                <span>I understand this creates a local demo profile only, not a real account.</span>
+                <span>I understand this saves a local demo profile only. It does not create an account or authenticate me.</span>
               </label>
-              <button class="button button-primary button-full" type="submit">Continue to demo <span aria-hidden="true">→</span></button>
+              <button class="button button-primary button-full" type="submit">Save local demo profile <span aria-hidden="true">→</span></button>
               <p class="form-footnote">Profile details stay in this browser's local storage and can be cleared with “Exit demo”.</p>
             </form>
           </section>
         </div>
       </section>
-      <p class="auth-disclaimer">Illustrative content only. Demo offers, calculations and programme cards are not live or verified information.</p>
+      <p class="auth-disclaimer">This preview has no Django authentication or database connection. All offers and programme cards are illustrative demo content, not live or verified information.</p>
     </main>
   </body>
 </html>

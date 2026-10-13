@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1000" viewBox="0 0 1200 1000" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="600" y1="0" x2="600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5EBDD"/>
+      <stop offset="1" stop-color="#E8D9C5"/>
+    </linearGradient>
+    <linearGradient id="field" x1="600" y1="420" x2="600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7BA05B"/>
+      <stop offset="1" stop-color="#697D45"/>
+    </linearGradient>
+    <linearGradient id="foreground" x1="600" y1="570" x2="600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#697D45"/>
+      <stop offset="1" stop-color="#3E2723"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h1200v1000H0z"/>
+  <circle cx="914" cy="236" r="89" fill="#C66B45" fill-opacity=".72"/>
+  <path fill="#A6B68B" d="M0 459c112-78 209-116 325-103 110 12 171 82 280 85 101 3 175-86 284-83 108 3 205 74 311 44v598H0V459Z"/>
+  <path fill="#7BA05B" d="M0 525c132-60 216-75 320-50 106 25 159 91 265 91 119 0 188-94 296-92 113 2 193 73 319 48v478H0V525Z"/>
+  <path fill="url(#field)" d="M0 618c132-38 239-52 360-29 117 22 179 76 298 77 127 1 209-66 329-69 73-2 143 11 213 26v377H0V618Z"/>
+  <path fill="url(#foreground)" d="M0 744c146-29 263-24 390 2 113 24 187 58 306 55 123-3 226-49 333-57 58-4 114 1 171 13v243H0V744Z"/>
+  <g stroke="#E8D9C5" stroke-opacity=".72" stroke-width="5">
+    <path d="M-62 656c240-83 450-62 626-11 206 60 375 68 710-10"/>
+    <path d="M-66 704c247-74 446-48 627 3 209 60 390 63 707-4"/>
+    <path d="M-54 770c246-67 447-36 627 12 210 56 399 54 693-9"/>
+    <path d="M-52 842c239-61 440-27 622 18 207 51 401 48 685-10"/>
+    <path d="M-42 922c239-54 434-18 613 23 201 46 399 43 671-11"/>
+  </g>
+  <g fill="#3E2723" fill-opacity=".72">
+    <path d="M108 743c-10-75 4-129 43-174 2 61-9 119-43 174Z"/>
+    <path d="M133 718c-5-67 13-112 57-145-8 54-25 101-57 145Z"/>
+    <path d="M160 712c10-57 36-92 82-112-20 48-46 83-82 112Z"/>
+    <path d="M109 759c31-22 63-34 100-33-29 24-61 36-100 33Z"/>
+    <path d="M995 796c-2-69 17-119 59-157-8 57-25 108-59 157Z"/>
+    <path d="M1022 773c9-57 36-96 81-120-18 49-45 87-81 120Z"/>
+    <path d="M992 810c35-25 72-38 114-36-33 27-70 40-114 36Z"/>
+  </g>
+</svg>

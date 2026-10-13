@@ -1020,25 +1020,63 @@
   display: flex;
   min-height: 67px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 11px;
   padding: 12px 16px;
   background: var(--green-dark);
   color: white;
 }
 
-.chat-header strong,
-.chat-header span {
+.chat-heading strong,
+.chat-heading span {
   display: block;
 }
 
-.chat-header strong {
-  font-size: 0.88rem;
+.chat-heading {
+  min-width: 0;
+  flex: 1;
 }
 
-.chat-header span {
+.chat-header strong {
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+}
+
+.chat-heading span {
   margin-top: 3px;
   color: rgb(255 255 255 / 69%);
   font-size: 0.66rem;
+}
+
+.soily-mark {
+  position: relative;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 32%);
+  border-radius: 12px;
+  background: rgb(255 252 246 / 12%);
+}
+
+.soily-mark::before {
+  width: 13px;
+  height: 19px;
+  transform: rotate(38deg);
+  border: 2px solid #d5dfb9;
+  border-radius: 100% 0 100% 0;
+  content: "";
+}
+
+.soily-mark::after {
+  position: absolute;
+  width: 2px;
+  height: 13px;
+  transform: rotate(42deg);
+  border-radius: 2px;
+  background: #d5dfb9;
+  content: "";
 }
 
 .chat-close {
@@ -1052,6 +1090,7 @@
   color: white;
   cursor: pointer;
   font-size: 1.35rem;
+  margin-left: auto;
 }
 
 .chat-messages {
@@ -1061,26 +1100,37 @@
   gap: 12px;
   overflow-y: auto;
   padding: 15px;
-  background: #fbfcf8;
+  background: var(--cream);
+}
+
+.chat-status {
+  margin: 0;
+  padding: 4px 14px 0;
+  color: var(--earth-rich);
+  font-size: 0.68rem;
+}
+
+.chat-status[hidden] {
+  display: none;
 }
 
 .chat-message {
   max-width: 90%;
   padding: 10px 12px;
   border-radius: 12px;
-  background: #edf3e8;
-  color: #455447;
+  background: #f2eadc;
+  color: var(--text);
 }
 
 .chat-message-user {
   align-self: flex-end;
-  background: #e5f0e1;
+  background: #e9efdf;
 }
 
 .chat-sender {
   display: block;
   margin-bottom: 4px;
-  color: #788577;
+  color: var(--muted);
   font-size: 0.61rem;
   font-weight: 700;
 }
@@ -1101,10 +1151,10 @@
 .voice-shortcuts button {
   min-height: 30px;
   padding: 5px 9px;
-  border: 1px solid #dce7d7;
+  border: 1px solid var(--beige);
   border-radius: 20px;
   background: white;
-  color: #4e704c;
+  color: var(--earth-rich);
   cursor: pointer;
   font-size: 0.64rem;
 }
@@ -1127,7 +1177,8 @@
 }
 
 .chat-form input:focus {
-  outline: 3px solid rgb(139 195 74 / 30%);
+  outline: 3px solid rgb(105 125 69 / 24%);
+  border-color: var(--olive);
 }
 
 .chat-form button {
@@ -1143,7 +1194,7 @@
 .chat-disclaimer {
   margin: 0;
   padding: 0 13px 11px;
-  color: #899286;
+  color: var(--muted);
   font-size: 0.61rem;
   text-align: center;
 }
@@ -1853,6 +1904,10 @@
   color: #9baa99;
 }
 
+[data-theme="dark"] .chat-status {
+  color: #d9c5ad;
+}
+
 [data-theme="dark"] .chat-messages {
   background: #142018;
 }
@@ -1908,5 +1963,509 @@
   .chat-launcher,
   .role-option {
     transition-duration: 0.01ms;
+  }
+}
+
+.auth-page {
+  background: #f5f7f1;
+}
+
+.auth-page .app-header {
+  position: static;
+}
+
+.auth-page .auth-main {
+  min-height: calc(100svh - 74px);
+  padding-block: 42px;
+}
+
+.auth-page .auth-card {
+  width: min(820px, 100%);
+  border-color: #e4e9df;
+  border-radius: 17px;
+  box-shadow: 0 12px 36px rgb(23 77 53 / 7%);
+}
+
+.auth-page .auth-intro {
+  padding: 38px 34px;
+}
+
+.auth-page .auth-form-wrap {
+  padding: 34px;
+}
+
+.auth-page .auth-intro h1 {
+  font-size: clamp(1.8rem, 3vw, 2.35rem);
+}
+
+.auth-page .auth-tabs {
+  margin-bottom: 22px;
+}
+
+.auth-page .role-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.auth-page .role-option {
+  min-height: 132px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 14px;
+}
+
+.auth-page .role-option-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.auth-page .role-option > span:last-child {
+  flex: 1 1 calc(100% - 52px);
+}
+
+.farmer-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.dashboard-summary-hidden {
+  display: none !important;
+}
+
+.farmer-hub-card {
+  position: relative;
+  display: flex;
+  min-height: 170px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 17px;
+  padding: 18px;
+  border: 1px solid #e4e9df;
+  border-radius: 13px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.farmer-hub-card:hover {
+  transform: translateY(-2px);
+  border-color: #b7cbae;
+  box-shadow: 0 8px 20px rgb(23 77 53 / 7%);
+}
+
+.farmer-hub-card:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 3px;
+}
+
+.farmer-hub-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.hub-icon-crop {
+  background: #eaf3e6;
+  color: #2e7d32;
+}
+
+.hub-icon-calc {
+  background: #e8f1f2;
+  color: #47767a;
+}
+
+.hub-icon-database {
+  background: #fbf1d9;
+  color: #856a25;
+}
+
+.hub-icon-scheme {
+  background: #f3ece7;
+  color: #795548;
+}
+
+.hub-icon-sell {
+  background: #eaf3e6;
+  color: #174d35;
+}
+
+.hub-icon-sell svg {
+  width: 23px;
+  height: 23px;
+}
+
+.farmer-hub-copy strong,
+.farmer-hub-copy small {
+  display: block;
+}
+
+.farmer-hub-copy strong {
+  color: #26392a;
+  font-size: 0.87rem;
+  line-height: 1.4;
+}
+
+.farmer-hub-copy small {
+  margin-top: 6px;
+  color: #758074;
+  font-size: 0.71rem;
+  line-height: 1.55;
+}
+
+.farmer-hub-arrow {
+  position: absolute;
+  right: 15px;
+  bottom: 14px;
+  color: #527650;
+}
+
+.secondary-demo-flow {
+  margin: 0 0 30px;
+  border: 1px solid #e4e9df;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.secondary-demo-flow > summary {
+  padding: 16px 18px;
+  color: #365839;
+  cursor: pointer;
+  font-size: 0.83rem;
+  font-weight: 650;
+}
+
+.secondary-demo-flow[open] > summary {
+  border-bottom: 1px solid #e8ece4;
+}
+
+.secondary-demo-flow .content-section {
+  padding: 18px;
+}
+
+[data-theme="dark"] .farmer-hub-card,
+[data-theme="dark"] .secondary-demo-flow {
+  border-color: #304134;
+  background: #1d2921;
+}
+
+[data-theme="dark"] .farmer-hub-copy strong,
+[data-theme="dark"] .secondary-demo-flow > summary {
+  color: #e2ecdf;
+}
+
+[data-theme="dark"] .farmer-hub-copy small {
+  color: #adbaac;
+}
+
+.sell-goods-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(220px, 0.8fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.sell-goods-form-panel,
+.sell-goods-note {
+  padding: 20px;
+}
+
+.sell-goods-actions,
+.farmer-listing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sell-goods-feedback {
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  color: var(--green);
+  font-size: 0.82rem;
+}
+
+.sell-goods-feedback[data-kind="error"] {
+  color: #a3342b;
+}
+
+.sell-goods-note {
+  border-color: #e5eadf;
+  background: #f8faf5;
+}
+
+.sell-goods-note .aside-icon {
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 12px;
+  background: #eaf3e6;
+  color: #174d35;
+}
+
+.sell-goods-note h3 {
+  margin: 14px 0 8px;
+  color: #26392a;
+}
+
+.sell-goods-note p {
+  margin: 0;
+  color: #687868;
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.sell-goods-list-heading {
+  margin-top: 28px;
+}
+
+.sell-goods-list-heading h3 {
+  margin: 0;
+  color: #26392a;
+  font-size: 1.1rem;
+}
+
+.farmer-listing-actions {
+  margin-top: 14px;
+}
+
+.farmer-listing-actions .button {
+  min-height: 38px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+}
+
+[data-theme="dark"] .sell-goods-note {
+  border-color: #304134;
+  background: #1d2921;
+}
+
+[data-theme="dark"] .sell-goods-note h3,
+[data-theme="dark"] .sell-goods-list-heading h3 {
+  color: #e2ecdf;
+}
+
+[data-theme="dark"] .sell-goods-note p {
+  color: #adbaac;
+}
+
+@media (max-width: 900px) {
+  .farmer-hub-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sell-goods-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .farmer-hub-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .chat-widget.is-form-active {
+    visibility: hidden;
+  }
+}
+
+body.app-page {
+  background: var(--sand);
+  color: var(--text);
+}
+
+.app-header,
+.site-header {
+  border-color: rgb(62 39 35 / 10%);
+  background: rgb(255 252 246 / 96%);
+}
+
+.app-nav-link {
+  color: var(--muted);
+}
+
+.app-nav-link:hover,
+.app-nav-link.is-active {
+  background: #eee6d8;
+  color: var(--soil-deep);
+}
+
+.panel,
+.crop-card,
+.offer-card,
+.scheme-card,
+.listing-card,
+.stat-card,
+.season-card,
+.farmer-hub-card,
+.secondary-demo-flow,
+.auth-card {
+  border-color: var(--beige);
+  border-radius: 14px;
+  background: var(--cream);
+  box-shadow: 0 8px 24px rgb(62 39 35 / 5%);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea,
+.compact-filter select,
+.setting-row select,
+.chat-form input {
+  border-color: var(--beige);
+  border-radius: 9px;
+  background-color: var(--white);
+  color: var(--text);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus,
+.compact-filter select:focus,
+.setting-row select:focus,
+.chat-form input:focus {
+  border-color: var(--olive);
+  outline: 3px solid rgb(105 125 69 / 23%);
+  outline-offset: 1px;
+}
+
+.form-field input:user-invalid,
+.form-field select:user-invalid,
+.form-field textarea:user-invalid {
+  border-color: #a3342b;
+}
+
+.button,
+.button-soft,
+.chat-launcher,
+.chat-form button {
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.chat-launcher {
+  background: var(--olive);
+  box-shadow: 0 10px 25px rgb(62 39 35 / 20%);
+}
+
+.chat-launcher:hover,
+.chat-form button:hover {
+  background: #586b39;
+}
+
+.chat-header {
+  background: var(--soil-deep);
+}
+
+.chat-panel {
+  border-color: var(--beige);
+  border-radius: 18px;
+  background: var(--cream);
+  box-shadow: 0 18px 55px rgb(62 39 35 / 19%);
+}
+
+.chat-form button {
+  background: var(--olive);
+}
+
+.chat-message-assistant {
+  border-bottom-left-radius: 4px;
+}
+
+.chat-message-user {
+  border-bottom-right-radius: 4px;
+  background: #e9efdf;
+  color: var(--soil-deep);
+}
+
+[data-theme="dark"] body.app-page {
+  background: #211b18;
+  color: #f3eadf;
+}
+
+[data-theme="dark"] .app-header,
+[data-theme="dark"] .site-header {
+  border-color: #4b3b33;
+  background: rgb(33 27 24 / 96%);
+}
+
+[data-theme="dark"] .panel,
+[data-theme="dark"] .crop-card,
+[data-theme="dark"] .offer-card,
+[data-theme="dark"] .scheme-card,
+[data-theme="dark"] .listing-card,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .season-card,
+[data-theme="dark"] .farmer-hub-card,
+[data-theme="dark"] .secondary-demo-flow,
+[data-theme="dark"] .auth-card,
+[data-theme="dark"] .chat-panel {
+  border-color: #57463c;
+  background-color: #302620;
+  color: #f3eadf;
+}
+
+[data-theme="dark"] .chat-messages {
+  background: #251e1a;
+}
+
+[data-theme="dark"] .chat-message {
+  background: #49392f;
+  color: #f3eadf;
+}
+
+[data-theme="dark"] .chat-message-user {
+  background: #465238;
+}
+
+[data-theme="dark"] .chat-form input,
+[data-theme="dark"] .form-field input,
+[data-theme="dark"] .form-field select,
+[data-theme="dark"] .form-field textarea,
+[data-theme="dark"] .compact-filter select,
+[data-theme="dark"] .setting-row select {
+  border-color: #665246;
+  background: #251e1a;
+  color: #f3eadf;
+}
+
+@media (max-width: 620px) {
+  .chat-panel {
+    width: min(390px, calc(100vw - 28px));
+    height: min(560px, calc(100dvh - 120px));
+  }
+
+  .auth-page .auth-main {
+    min-height: calc(100svh - 66px);
+    padding: 24px 15px;
+  }
+
+  .auth-page .auth-intro,
+  .auth-page .auth-form-wrap {
+    padding: 24px 21px;
+  }
+
+  .auth-page .role-options {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-page .role-option {
+    min-height: 88px;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .farmer-hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farmer-hub-card {
+    min-height: 125px;
   }
 }

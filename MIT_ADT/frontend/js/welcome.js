@@ -26,3 +26,17 @@ navigation?.querySelectorAll("a").forEach((link) => {
 
 const year = document.getElementById("current-year");
 if (year) year.textContent = String(new Date().getFullYear());
+
+const heroImage = document.querySelector(".hero-image");
+const heroImageFrame = heroImage?.closest(".hero-image-frame");
+
+function showHeroImageFallback() {
+  if (!heroImage || !heroImageFrame || heroImageFrame.classList.contains("has-image-fallback")) return;
+  heroImageFrame.classList.add("has-image-fallback");
+  heroImage.hidden = true;
+  heroImageFrame.setAttribute("role", "img");
+  heroImageFrame.setAttribute("aria-label", heroImage.alt);
+}
+
+heroImage?.addEventListener("error", showHeroImageFallback);
+if (heroImage?.complete && heroImage.naturalWidth === 0) showHeroImageFallback();

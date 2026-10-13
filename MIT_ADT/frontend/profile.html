@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Manage your local KisanSaathi demo profile, language preference, theme and voice commands.">
-    <meta name="theme-color" content="#fffdf5">
-    <title>Profile &amp; settings — KisanSaathi Demo</title>
+    <meta name="description" content="Manage your local FarmAura demo profile, language preference, theme and voice commands.">
+    <meta name="theme-color" content="#FFFCF6">
+    <meta property="og:site_name" content="FarmAura">
+    <title>Profile &amp; settings — FarmAura Demo</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -21,9 +23,9 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="app-header">
       <div class="app-header-inner">
-        <a class="brand" href="index.html" aria-label="KisanSaathi home">
+        <a class="brand" href="index.html" aria-label="FarmAura home">
           <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M32.5 7.5C20 7.5 10 12 10 22.5c0 5.5 4 9 9 9 10.5 0 13.5-12 13.5-24Z" fill="currentColor"/><path d="M8 33c4.4-8.6 10.2-13.7 19-18" stroke="#FFFDF5" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-          <span class="brand-name">Kisan<span>Saathi</span></span>
+          <span class="brand-name">FarmAura</span>
         </a>
         <button class="app-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="app-navigation" data-mobile-toggle>☰</button>
         <nav class="app-navigation" id="app-navigation" aria-label="Profile navigation">
@@ -67,17 +69,18 @@
           <button class="button button-outline" type="button" data-sign-out>Exit demo profile</button>
         </section>
       </div>
-      <footer class="app-footer"><span>© <span data-current-year></span> KisanSaathi</span><span>Local demo · No backend connection</span><a href="index.html">Welcome page</a></footer>
+      <footer class="app-footer"><span>© <span data-current-year></span> FarmAura</span><span>Local demo · No backend connection</span><a href="index.html">Welcome page</a></footer>
     </main>
     <div class="chat-widget" data-chat-widget>
-      <section class="chat-panel" id="chat-panel" aria-label="KisanSaathi demo assistant" hidden>
-        <header class="chat-header"><div><strong>Field companion</strong><span>Demo assistant · Scripted replies</span></div><button type="button" class="chat-close" data-chat-close aria-label="Close assistant">×</button></header>
+      <section class="chat-panel" id="chat-panel" aria-label="SOILY, FarmAura's soil and farming assistant" hidden>
+        <header class="chat-header"><span class="soily-mark" aria-hidden="true"></span><div class="chat-heading"><strong>SOILY</strong><span>FarmAura's soil &amp; farming assistant · Scripted demo</span></div><button type="button" class="chat-close" data-chat-close aria-label="Close SOILY">×</button></header>
         <div class="chat-messages" data-chat-messages aria-live="polite" aria-relevant="additions"></div>
-        <div class="chat-suggestions"><button type="button" data-chat-suggestion="How do I estimate irrigation volume?">Irrigation</button><button type="button" data-chat-suggestion="What should I know about schemes?">Schemes</button></div>
-        <form class="chat-form" data-chat-form><label class="sr-only" for="chat-input">Ask the demo assistant</label><input id="chat-input" name="message" maxlength="400" placeholder="Ask a farming question…" required><button type="submit" aria-label="Send message">↑</button></form>
-        <p class="chat-disclaimer">Sample responses only. Not a live AI service or expert advice.</p>
+        <p class="chat-status" data-chat-status role="status" hidden>SOILY is preparing a demo response…</p>
+        <div class="chat-suggestions"><button type="button" data-chat-suggestion="How can I check my soil health?">Soil health</button><button type="button" data-chat-suggestion="How do I estimate irrigation volume?">Irrigation</button><button type="button" data-chat-suggestion="What should I know about schemes?">Schemes</button></div>
+        <form class="chat-form" data-chat-form><label class="sr-only" for="chat-input">Ask SOILY a farming question</label><input id="chat-input" name="message" maxlength="400" placeholder="Ask SOILY about soil or farming…" required><button type="submit" aria-label="Send message to SOILY">↑</button></form>
+        <p class="chat-disclaimer">Scripted demo replies only. No live AI, soil test, weather or expert advice is connected.</p>
       </section>
-      <button type="button" class="chat-launcher" aria-expanded="false" aria-controls="chat-panel" data-chat-launcher><span aria-hidden="true">✳</span><span>Ask Saathi</span></button>
+      <button type="button" class="chat-launcher" aria-expanded="false" aria-controls="chat-panel" data-chat-launcher><span class="soily-launcher-mark" aria-hidden="true">✳</span><span>Ask SOILY</span></button>
     </div>
   </body>
 </html>

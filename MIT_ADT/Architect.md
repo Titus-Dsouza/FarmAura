@@ -1,8 +1,11 @@
-# Architecture.md — KisanSaathi
+
+# Architecture.md — FarmAura
+
+> **Implementation status:** This document describes the proposed target architecture. The checked-in project currently contains a static vanilla-JavaScript frontend in demo mode. Django, NeonDB, Gemma 4, MCP, and offline caching are not implemented or connected. The visible assistant is SOILY and currently returns scripted demo replies.
 
 ## 1. Project Overview
 
-KisanSaathi is an AI-powered, farmer-focused website designed to help farmers make better agricultural decisions.
+FarmAura is designed to help farmers make better agricultural decisions. In the current demo, the SOILY chatbot uses scripted replies; AI-powered behavior is a future integration.
 
 The platform provides:
 - Harvesting and crop-decay guidance.
@@ -10,7 +13,7 @@ The platform provides:
 - Buyer price comparison.
 - Government schemes and agricultural loan information.
 - A seller interface for creating purchase requests.
-- An AI chatbot powered by Gemma 4.
+- SOILY assistant identity; current replies are scripted demo content. A Gemma 4 service is a future integration and is not connected.
 - Voice commands, language selection and dark/light mode.
 - Offline access to essential farming information.
 
@@ -29,10 +32,10 @@ The architecture is designed to be modular, maintainable, secure and suitable fo
 | API layer | Django REST Framework | Communication between frontend and backend |
 | Database | NeonDB (PostgreSQL) | Persistent application data |
 | ORM | Django ORM | Database queries and model management |
-| AI model | Gemma 4 | Natural-language understanding and farming explanations |
-| AI tool integration | MCP | Exposing approved farming tools to the AI |
+| Planned AI model | Gemma 4 | Future natural-language understanding and farming explanations; not connected |
+| Planned AI tool integration | MCP | Future controlled access to approved farming tools; not connected |
 | Authentication | Django authentication | Registration, login, sessions and permissions |
-| Offline support | Service Worker + IndexedDB | Cached pages, saved guides and local data |
+| Planned offline support | Service Worker + IndexedDB | Not implemented in the checked-in frontend |
 
 ---
 
@@ -74,7 +77,7 @@ flowchart TD
 2. **Offline layer:** Stores essential pages and selected farming information for offline use.
 3. **Django backend:** Processes requests, validates inputs and applies business rules.
 4. **NeonDB:** Stores user accounts, crop information, buyer offers, seller requests and other application records.
-5. **Gemma 4:** Generates explanations and interprets users' farming questions.
+5. **Planned Gemma 4 runtime:** Could generate explanations and interpret farming questions after it is configured and tested.
 6. **MCP server:** Gives the AI controlled access to approved tools and structured information.
 7. **Agricultural data layer:** Provides verified references and available farming information.
 
@@ -299,7 +302,7 @@ NeonDB stores the user and authentication-related records, while Django manages 
 
 ---
 
-## 8. Gemma 4 + MCP Architecture
+## 8. Planned Gemma 4 + MCP Architecture
 
 ### Responsibilities
 
@@ -530,8 +533,8 @@ Test mobile layouts, permissions, API errors, AI tool calls, offline behaviour a
 
 ## 14. Final Architecture Summary
 
-KisanSaathi uses a **HTML, CSS and JavaScript frontend**, a **Django REST Framework backend**, and **NeonDB PostgreSQL** for persistent storage.
+The target architecture uses an **HTML, CSS and JavaScript frontend**, a **Django REST Framework backend**, and **NeonDB PostgreSQL** for persistent storage.
 
-Django handles authentication, permissions, APIs and business logic. Gemma 4 provides AI-powered explanations through an inference runtime, while MCP connects the AI workflow to approved farming tools. A Service Worker and IndexedDB provide offline access to selected resources and basic calculations.
+Django is intended to handle authentication, permissions, APIs and business logic. A future configured Gemma 4 inference runtime could provide explanations, while MCP could connect the AI workflow to approved farming tools. A Service Worker and IndexedDB are planned for offline access; none of these backend, AI, or offline services is currently implemented.
 
 The result is a modular agricultural assistant designed around accessible farming tools, transparent information and practical use in low-connectivity environments.

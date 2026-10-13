@@ -98,6 +98,81 @@ function renderActivity(items) {
   list.innerHTML = items.map((item) => `<article class="activity-item"><span class="activity-dot" aria-hidden="true"></span><div><strong>${app.escapeHtml(item.title)}</strong><p>${app.escapeHtml(item.detail)}</p></div><time>${app.escapeHtml(item.date)}</time></article>`).join("");
 }
 
+let myListings = [];
+let editingListingId = null;
+
+function displayDate(value) {
+  const date = new Date(`${value}T00:00:00`);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString();
+}
+
+function renderMyListings() {
+  const grid = document.getElementById("my-farmer-listings");
+  if (!grid) return;
+  if (!myListings.length) {
+    grid.innerHTML = '<div class="empty-state"><strong>You have no saved demo listings yet.</strong><p>Use the form above to add a listing example. It will remain on this device.</p></div>';
+    return;
+  }
+  grid.innerHTML = myListings.map((listing) => `<article class="listing-card farmer-owned-listing">
+    <div class="listing-card-top"><span class="listing-crop-symbol" aria-hidden="true">▤</span><span class="status-pill status-demo">Your demo listing</span></div>
+    <h3>${app.escapeHtml(listing.crop)}</h3>
+    <p class="offer-location">${app.escapeHtml(listing.farmer)} · ${app.escapeHtml(listing.location)}</p>
+    <div class="listing-price"><strong>₹${Number(listing.price).toLocaleString("en-IN")}</strong><span>/ ${app.escapeHtml(listing.unit)}</span></div>
+    <div class="listing-availability"><span>Available quantity</span><strong>${Number(listing.quantity).toLocaleString("en-IN")} ${app.escapeHtml(listing.unit)}</strong></div>
+    <details class="listing-details"><summary>View listing details</summary><dl><div><dt>Availability</dt><dd>${app.escapeHtml(displayDate(listing.availabilityDate))}</dd></div><div><dt>Description</dt><dd>${app.escapeHtml(listing.description || "No description provided")}</dd></div><div><dt>Notice</dt><dd>Saved on this device only; not published to retailers</dd></div></dl></details>
+    <div class="farmer-listing-actions"><button class="button button-outline" type="button" data-edit-farmer-listing="${app.escapeHtml(listing.id)}">Edit</button><button class="button button-outline" type="button" data-delete-farmer-listing="${app.escapeHtml(listing.id)}">Remove</button></div>
+  </article>`).join("");
+}
+
+function showSellGoodsFeedback(message, kind = "success") {
+  const feedback = document.getElementById("sell-goods-feedback");
+  if (!feedback) return;
+  feedback.textContent = message;
+  feedback.dataset.kind = kind;
+}
+
+function resetSellGoodsForm() {
+  const form = document.getElementById("sell-goods-form");
+  if (!form) return;
+  form.reset();
+  editingListingId = null;
+  document.getElementById("sell-goods-submit").textContent = "Save demo listing";
+  document.getElementById("sell-goods-cancel").hidden = true;
+  document.getElementById("sell-goods-title").textContent = "Sell Goods";
+}
+
+function startEditingListing(listing) {
+  const form = document.getElementById("sell-goods-form");
+  if (!form) return;
+  editingListingId = listing.id;
+  Object.entries({
+    crop: listing.crop,
+    quantity: listing.quantity,
+    unit: listing.unit,
+    price: listing.price,
+    location: listing.location,
+    availabilityDate: listing.availabilityDate,
+    description: listing.description || ""
+  }).forEach(([name, value]) => { form.elements.namedItem(name).value = value; });
+  document.getElementById("sell-goods-submit").textContent = "Save changes";
+  document.getElementById("sell-goods-cancel").hidden = false;
+  document.getElementById("sell-goods-title").textContent = "Edit Sell Goods listing";
+  showSellGoodsFeedback("Editing your local demo listing.");
+  document.getElementById("sell-goods").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+async function loadMyListings() {
+  const grid = document.getElementById("my-farmer-listings");
+  if (!grid) return;
+  try {
+    myListings = await app.api.farmerListings.list();
+    renderMyListings();
+  } catch (error) {
+    grid.innerHTML = `<div class="empty-state"><strong>Could not load your listings.</strong><p>${app.escapeHtml(error.message)}</p></div>`;
+    app.showToast("Your demo listings could not be loaded.", "error");
+  }
+}
+
 async function recordCalculation(title, detail) {
   const calculations = app.store.read("recent-calculations", []);
   calculations.unshift({
@@ -172,6 +247,101 @@ document.addEventListener("click", (event) => {
     renderOffers();
     app.showToast(next.includes(id) ? "Offer saved on this device." : "Offer removed from saved items.");
   }
+  const editListing = event.target.closest("[data-edit-farmer-listing]");
+  if (editListing) {
+    const listing = myListings.find((item) => item.id === editListing.dataset.editFarmerListing);
+    if (listing) startEditingListing(listing);
+  }
+  const deleteListing = event.target.closest("[data-delete-farmer-listing]");
+  if (deleteListing) {
+    const listing = myListings.find((item) => item.id === deleteListing.dataset.deleteFarmerListing);
+    if (!listing || !window.confirm(`Remove your ${listing.crop} demo listing from this device?`)) return;
+    app.api.farmerListings.delete(listing.id).then(() => {
+      myListings = myListings.filter((item) => item.id !== listing.id);
+      renderMyListings();
+      showSellGoodsFeedback("Your demo listing was removed from this device.");
+      app.showToast("Demo listing removed.");
+    }).catch((error) => {
+      showSellGoodsFeedback(error.message, "error");
+      app.showToast("Could not remove this demo listing.", "error");
+    });
+  }
+});
+
+document.getElementById("sell-goods-form")?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) {
+    showSellGoodsFeedback("Check the required fields and enter a quantity and price greater than zero.", "error");
+    return;
+  }
+  const values = new FormData(form);
+  const listing = {
+    crop: String(values.get("crop")).trim(),
+    quantity: Number(values.get("quantity")),
+    unit: String(values.get("unit")),
+    price: Number(values.get("price")),
+    location: String(values.get("location")).trim(),
+    availabilityDate: String(values.get("availabilityDate")),
+    description: String(values.get("description") || "").trim()
+  };
+  const submit = document.getElementById("sell-goods-submit");
+  let savedListing;
+  app.setBusy(submit, true, "Saving…");
+  try {
+    savedListing = editingListingId
+      ? await app.api.farmerListings.update(editingListingId, listing)
+      : await app.api.farmerListings.create(listing);
+  } catch (error) {
+    showSellGoodsFeedback(error.message || "The demo listing could not be saved.", "error");
+    app.showToast("Could not save the demo listing.", "error");
+  } finally {
+    app.setBusy(submit, false);
+  }
+  if (!savedListing) return;
+  if (editingListingId) {
+    myListings = myListings.map((item) => item.id === savedListing.id ? savedListing : item);
+  } else {
+    myListings.unshift(savedListing);
+  }
+  renderMyListings();
+  resetSellGoodsForm();
+  showSellGoodsFeedback("Demo listing saved on this device. It has not been published to retailers.");
+  app.showToast("Demo listing saved on this device.");
+});
+
+document.getElementById("sell-goods-cancel")?.addEventListener("click", () => {
+  resetSellGoodsForm();
+  showSellGoodsFeedback("Edit cancelled.");
+});
+
+document.getElementById("sell-goods-form")?.addEventListener("input", () => {
+  const feedback = document.getElementById("sell-goods-feedback");
+  if (feedback) {
+    feedback.textContent = "";
+    feedback.dataset.kind = "success";
+  }
+});
+
+document.getElementById("sell-goods-form")?.addEventListener("invalid", (event) => {
+  const messages = {
+    crop: "Enter a crop or product name.",
+    quantity: "Quantity must be greater than zero.",
+    unit: "Choose kg, quintal, or tonne.",
+    price: "Expected price must be greater than zero.",
+    location: "Enter a location.",
+    availabilityDate: "Choose a harvest or availability date."
+  };
+  showSellGoodsFeedback(messages[event.target.name] || "Check this field and try again.", "error");
+}, true);
+
+const sellGoodsForm = document.getElementById("sell-goods-form");
+const chatWidget = document.querySelector("[data-chat-widget]");
+sellGoodsForm?.addEventListener("focusin", () => chatWidget?.classList.add("is-form-active"));
+sellGoodsForm?.addEventListener("focusout", () => {
+  window.setTimeout(() => {
+    if (!sellGoodsForm.contains(document.activeElement)) chatWidget?.classList.remove("is-form-active");
+  });
 });
 
 document.getElementById("irrigation-form")?.addEventListener("submit", (event) => {
@@ -201,3 +371,4 @@ document.getElementById("fertilizer-form")?.addEventListener("submit", (event) =
 
 document.querySelectorAll("[data-current-year]").forEach((element) => { element.textContent = String(new Date().getFullYear()); });
 loadDashboard();
+loadMyListings();

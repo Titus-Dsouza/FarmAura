@@ -1,30 +1,40 @@
-# KisanSaathi — Phase.md
+# FarmAura — Phase.md
 
 Version: 1.1
 Last updated: 2026-10-13
 Owner (frontend): Titus Dsouza
 Owner (backend): Backend teammate
 
+## Current Rebranding Status
+
+FarmAura is the visible product brand. The in-app assistant is SOILY and is
+explicitly labelled as scripted demo behavior; Gemma 4, MCP, Django, NeonDB,
+and offline caching are not connected in the checked-in project. Existing
+`window.KisanSaathi` and `kisansathi-demo` identifiers remain unchanged to
+preserve browser API and stored demo-profile compatibility.
+
 ---
 
 ## Project Overview
 
-KisanSaathi is an AI-assisted agricultural web application to help Indian farmers access tools, crop information, seller offers, government schemes, and an AI assistant. The project is developed in phases so frontend and backend work can progress independently and integrate smoothly.
+FarmAura is an AI-assisted agricultural web application to help Indian farmers access tools, crop information, seller offers, government schemes, and an AI assistant. The project is developed in phases so frontend and backend work can progress independently and integrate smoothly.
 
 Core principle: The frontend must run independently before the backend is ready — use centralized mock data and a demo-mode API adapter until the real backend is available.
 
 Design system (from Design.md)
-- Primary green: `#2E7D32`
-- Deep green: `#174D35`
-- Fresh green: `#8BC34A`
-- Warm cream: `#FFFDF5`
-- Sunny yellow: `#F9C74F`
+- Deep soil brown: `#3E2723`
+- Rich earth brown: `#5D4037`
+- Terracotta: `#C66B45`
+- Organic olive: `#697D45`
+- Fresh leaf green: `#7BA05B`
+- Pale sand: `#F5EBDD`
+- Warm cream: `#FFFCF6`
 
 Technologies (source of truth: Architecture.md)
 - Frontend: HTML5, CSS3, JavaScript (vanilla)
 - Backend: Django + Django REST Framework
 - Database: Neon (PostgreSQL)
-- AI: Gemma 4 via MCP server (backend integration)
+- AI (planned): configured inference runtime and approved tools; Gemma 4/MCP are not connected.
 
 Important rules
 - Do not change the agreed stack without discussion.
@@ -43,7 +53,7 @@ Goal: Build the basic website structure, navigation, visual identity, and a resp
 Tasks
 1. Create the frontend project folder and initial HTML pages.
 2. Set up base HTML/CSS/JS structure and component layout.
-3. Implement KisanSaathi logo and visual identity.
+3. Implement FarmAura logo and visual identity.
 4. Implement the Welcome page with:
    - Clear introduction
    - Hero section with agriculture imagery
@@ -69,6 +79,8 @@ Completion criteria
 ## Phase 2 — Frontend Dashboards, Mock Data, and Demo Mode
 Owner: Frontend
 Status: Complete — local demo frontend implemented; see README.md and memory.md for scope and verification.
+
+Current assistant identity: SOILY, FarmAura's soil and farming assistant. Replies remain scripted demo content; no connected AI service is claimed.
 
 Goal: Implement farmer and seller flows and ensure the entire frontend is usable locally without Django or NeonDB.
 
@@ -153,6 +165,7 @@ Completion criteria
 Owner: Backend
 
 Goal: Create the Django project, configure NeonDB, and provide the initial models and health endpoints.
+Status: Not present in the checked-in repository; Phase 3 completion has not been verified.
 
 Tasks
 1. Create Django project and apps per Architecture.md:
@@ -178,17 +191,15 @@ Completion criteria
 Owner: Backend
 
 Goal: Implement REST APIs used by the frontend.
+Status: Blocked — Phase 3 Django project, models, migrations, and database configuration are missing. See `PHASE4-INTEGRATION-PLAN.md`; no Phase 4 endpoint is implemented.
 
 Suggested endpoints (follow Architecture.md conventions)
-- GET/POST /api/profile/
-- GET /api/crops/
-- GET /api/crops/{id}/guides/
-- POST /api/calculators/irrigation/
-- POST /api/calculators/fertilizer/
-- GET /api/buyer-offers/
-- POST /api/purchase-requests/
-- GET /api/schemes/
-- POST /api/assistant/chat/
+- GET /api/v1/crops/
+- GET /api/v1/crops/{slug}/guidance/
+- POST /api/v1/calculators/irrigation/
+- POST /api/v1/calculators/fertilizer/
+- GET /api/v1/offers/compare/
+- GET /api/v1/schemes/?category=scheme|loan
 
 Tasks
 - Implement serializers, viewsets, validation, and pagination where needed.
@@ -282,7 +293,7 @@ AI reliability & safety rules
 - Prevent exposure of private user data.
 
 Demo-mode behavior
-- Until MCP/Gemma are available, the chatbot must use predefined demo responses and be clearly labelled "Demo assistant."
+- Until an inference runtime is configured and tested, SOILY uses predefined demo responses and is clearly labelled as a scripted demo assistant.
 
 Deliverables
 - Gemma 4 inference tests, MCP server configuration, Django assistant integration, and at least one working tool call.
@@ -357,7 +368,7 @@ Completion criteria
 ---
 
 ## Immediate Next Step (short actionable)
-The next roadmap phase is Phase 3: the backend teammate can set up Django and NeonDB. Keep the frontend in demo mode until the API contracts and integration details are agreed; do not begin authentication or MCP integration as part of the completed frontend phase.
+Provide and verify the Phase 3 Django/DRF project, ORM models, migrations, and NeonDB environment configuration. Then implement Phase 4 against those actual models and contracts. Keep the frontend in demo mode and preserve its mock adapter; do not begin authentication, Gemma 4, or MCP as part of Phase 4.
 
 ---
 

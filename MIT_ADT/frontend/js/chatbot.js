@@ -5,13 +5,14 @@ const chatLauncher = document.querySelector("[data-chat-launcher]");
 const chatPanel = document.getElementById("chat-panel");
 const chatMessages = document.querySelector("[data-chat-messages]");
 let welcomeShown = false;
+const chatStatus = document.querySelector("[data-chat-status]");
 
 function appendChatMessage(text, sender) {
   const message = document.createElement("div");
   message.className = `chat-message chat-message-${sender}`;
   const label = document.createElement("span");
   label.className = "chat-sender";
-  label.textContent = sender === "user" ? "You" : "Saathi · Demo";
+  label.textContent = sender === "user" ? "You" : "SOILY · Demo";
   const content = document.createElement("p");
   content.textContent = text;
   message.append(label, content);
@@ -24,7 +25,7 @@ function openChat() {
   chatPanel.hidden = false;
   chatLauncher.setAttribute("aria-expanded", "true");
   if (!welcomeShown) {
-    appendChatMessage("Hello! I can explain demo crop guidance, calculations, sample offers and placeholder scheme cards. What would you like to know?", "assistant");
+    appendChatMessage("Hello, I’m SOILY, FarmAura’s soil and farming assistant. I can explain the demo crop guides and calculations, and help you think through soil and farming questions. These are scripted demo replies—not live AI, soil tests, weather, or verified scheme advice. What would you like to explore?", "assistant");
     welcomeShown = true;
   }
   document.getElementById("chat-input")?.focus();
@@ -44,12 +45,14 @@ async function sendChatMessage(message) {
   const form = document.querySelector("[data-chat-form]");
   const send = form?.querySelector("button[type='submit']");
   chatbotApp.setBusy(send, true, "…");
+  if (chatStatus) chatStatus.hidden = false;
   try {
     const reply = await chatbotApp.api.askAssistant(clean);
     appendChatMessage(reply.text, "assistant");
   } catch {
-    appendChatMessage("The scripted demo response is unavailable right now. Try again or use the page's guidance cards.", "assistant");
+    appendChatMessage("SOILY couldn’t prepare a response just now. Please try again or use the page’s farming tools. This demo does not connect to a live AI service.", "assistant");
   } finally {
+    if (chatStatus) chatStatus.hidden = true;
     chatbotApp.setBusy(send, false);
   }
 }

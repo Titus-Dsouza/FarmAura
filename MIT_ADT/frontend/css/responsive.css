@@ -242,7 +242,7 @@
 
   .chat-panel {
     width: min(390px, calc(100vw - 28px));
-    height: min(570px, calc(100vh - 96px));
+    height: min(560px, calc(100dvh - 112px));
   }
 
   .chat-launcher {

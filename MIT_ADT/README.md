@@ -1,6 +1,6 @@
-# KisanSaathi
+# FarmAura
 
-An AI-powered agricultural assistance platform for Indian farmers — providing crop guidance, farming calculators, buyer-offer comparisons, government-scheme information, and an AI assistant. The project is being developed in phases so the frontend and backend can progress independently and integrate later.
+FarmAura is a farmer-focused agricultural web application for crop guidance, farming calculators, buyer-offer comparisons, and government-scheme information. Its current frontend is a local demo that can run independently while backend work progresses.
 
 > NOTE: During frontend development the app runs in Demo Mode (sample data and simulated responses). Demo/sample data must never be presented as live market prices or verified government information.
 
@@ -26,7 +26,9 @@ An AI-powered agricultural assistance platform for Indian farmers — providing 
 
 ## Project overview
 
-KisanSaathi helps farmers access reliable agriculture information and productivity tools in one place. It combines practical utilities (calculators, guides, offer comparisons) with an AI assistant (Gemma 4 + MCP) and supports offline/demo workflows so frontend work can proceed without a running backend.
+FarmAura brings practical farming tools and clearly labelled sample information together in one place. The frontend currently uses local demo data and a scripted SOILY assistant; Gemma 4, MCP, a backend, and offline caching are not connected or implemented.
+
+**SOILY** is FarmAura's intelligent soil and farming assistant identity: friendly, practical, patient, and farmer-focused. The current implementation only explains scripted demo guidance and tools; it is not a connected generative AI service and does not supply field observations, soil-test results, live weather, or verified scheme eligibility.
 
 ---
 
@@ -37,10 +39,10 @@ KisanSaathi helps farmers access reliable agriculture information and productivi
 - Seller dashboard: post purchase intents, browse listings, compare offers.
 - Buyer-offer comparison and purchase request flow (demo data available).
 - Government schemes viewer (sample entries in demo mode).
-- AI assistant (planned): Gemma 4 via MCP with approved farming tools.
-- Voice interaction (browser-supported).
+- SOILY assistant: scripted demo replies for crop guidance, calculations, illustrative offers, and scheme placeholders. It is not a live AI service and does not provide soil tests, diagnoses, live weather, or verified scheme eligibility.
+- Voice interaction hooks (browser support varies).
 - Language selection and light/dark themes.
-- Offline support: service worker, cached app shell, IndexedDB for selected data.
+- Offline support: planned; no service worker, web app manifest, or IndexedDB implementation is present.
 - Demo mode: centralized mock data and API adapter so the frontend is usable without backend.
 
 ---
@@ -51,9 +53,8 @@ KisanSaathi helps farmers access reliable agriculture information and productivi
 - Backend: Python, Django, Django REST Framework
 - Database: NeonDB (PostgreSQL)
 - ORM: Django ORM
-- AI Model: Gemma 4 (inference runtime chosen during AI integration)
-- AI Tool integration: Model Context Protocol (MCP)
-- Offline: Service Worker, Web App Manifest, IndexedDB
+- Planned AI integration: Gemma 4 inference runtime and Model Context Protocol (MCP); neither is currently configured.
+- Planned offline integration: Service Worker, Web App Manifest, IndexedDB.
 - Version control: Git + GitHub
 
 ---
@@ -61,16 +62,16 @@ KisanSaathi helps farmers access reliable agriculture information and productivi
 ## Architecture (high level)
 
 Frontend ↔ api.js (adapter) ↔ Demo mode (mock-api.js / demo-data.js) OR Backend (Django REST API)
-Backend ↔ NeonDB
-Backend assistant ↔ Gemma 4 + MCP
+Backend ↔ NeonDB (planned; not present in this repository)
+Future assistant integration ↔ Gemma 4 + MCP (not configured)
 
-The central `api.js` adapter switches between mock data and real API calls so UI code remains unchanged.
+The central `api.js` adapter defaults to demo data. Its future API mode is an integration boundary only; no real backend is available.
 
 ---
 
 ## Project structure (planned)
 
-KisanSaathi/
+FarmAura/ (planned structure; the checked-in project currently contains `frontend/` only)
 ├── frontend/
 │   ├── index.html
 │   ├── login.html
@@ -118,13 +119,29 @@ NeonDB, credentials, an AI runtime, or a build step.
 
 Demo pages:
 - `index.html` — welcome page
-- `login.html` — local demo role selection / profile setup (not authentication)
-- `farmer-dashboard.html` — crop guides, calculators, illustrative buyer offers,
-  placeholder scheme cards, and scripted assistant
-- `seller-dashboard.html` — local purchase request form and sample crop listings
+- `login.html` — local demo workspace selection / profile setup (not authentication)
+- `farmer-dashboard.html` — five primary tool links, crop guides, calculators,
+  illustrative buyer offers, placeholder scheme cards, and local Sell Goods demo
+- `seller-dashboard.html` — illustrative produce listing examples (including farmer
+  listings saved in the same browser) and an optional local-only purchase-request demo
 - `profile.html` — local profile, theme, language preference, and optional voice input
 
 Sample offers, scheme entries, and assistant replies are explicitly demo content.
 The default `frontend/js/config.js` mode is `demo`; in this mode the app makes no
 backend requests. The API adapter is kept separate in `frontend/js/api.js` for
 future integration against the documented Django endpoints.
+
+The local role chooser is a demo shortcut, not a login or authenticated role
+selection. Django authentication and a real database are not present yet, so
+farmer-created listings and retailer requests stay in this browser and do not
+reach real users. The retailer page shows clearly labelled illustrative records,
+not live inventory or prices.
+
+## Backend and Phase 4 status
+
+The repository currently contains the Phase 1–2 frontend only. The Phase 3
+Django/NeonDB backend, models, migrations, and Python dependency manifest are
+not present, so no farming API is implemented or available yet. See
+[PHASE4-INTEGRATION-PLAN.md](PHASE4-INTEGRATION-PLAN.md) for the proposed
+versioned API contracts, implementation prerequisites, and migration/test
+commands. The frontend remains in demo mode and is not changed by that plan.

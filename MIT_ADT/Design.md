@@ -1,12 +1,12 @@
-# Design.md — KisanSaathi
+# Design.md — FarmAura
 
 ## 1. Project Overview
 
-**KisanSaathi** is an AI-powered, farmer-focused website designed to help farmers make better farming decisions, reduce crop losses, calculate agricultural requirements, compare buyer offers, and discover government schemes and loans.
+**FarmAura** is a farmer-focused website designed to help farmers explore crop guidance, calculate agricultural quantities, compare illustrative buyer offers, and find reliable government-scheme information.
 
-The website also provides a seller interface where buyers can publish what crops they want to purchase using dummy data for the prototype.
+The website also provides a seller interface where buyers can enter crop purchase requirements using demo data for the prototype.
 
-An AI chatbot remains accessible throughout the website to answer questions and explain features in simple language.
+SOILY is available on the farmer and retailer demo workspaces. It uses scripted replies through the existing mock API adapter; no model or backend service is connected.
 
 ### Main Goals
 
@@ -22,11 +22,13 @@ An AI chatbot remains accessible throughout the website to answer questions and 
 
 ## 2. Website Structure
 
+The current static demo has a welcome page, demo workspace selection, farmer and retailer dashboards, and profile/settings. The authentication and server-backed behavior below describe future design goals, not existing features.
+
 The website consists of five main pages or interface areas.
 
 | Page | Name | Purpose |
 |---|---|---|
-| 1 | Welcome Page | Introduce KisanSaathi and explain its benefits |
+| 1 | Welcome Page | Introduce FarmAura and explain its benefits |
 | 2 | Login / Signup | Authenticate users using Neon-backed authentication |
 | 3 | Farmer / Seller Selection | Let users enter the correct interface |
 | 4 | Farmer Dashboard | Farming tools, crop information, price comparison, schemes and profile settings |
@@ -45,13 +47,13 @@ Introduce the platform in a friendly and trustworthy way before the user signs i
 ### Layout
 
 **Header**
-- KisanSaathi logo and name.
+- FarmAura logo and name.
 - Home, About and Features navigation.
 - Language selector.
 - Login / Signup button.
 
 **Hero Section**
-- Main heading: *Your Farming Companion, Powered by AI.*
+- Main heading: *Practical support for every growing season.*
 - Supporting text explaining how the platform helps farmers make informed decisions.
 - Primary CTA: **Get Started**
 - Secondary CTA: **Explore Features**
@@ -63,10 +65,10 @@ Introduce the platform in a friendly and trustworthy way before the user signs i
 3. Fertilizer & Manure Calculator
 4. Buyer Price Comparison
 5. Government Schemes & Loans
-6. AI Farming Assistant
+6. SOILY soil and farming assistant
 
 **Footer**
-- About KisanSaathi.
+- About FarmAura.
 - Available features.
 - Disclaimer about agricultural estimates and information freshness.
 
@@ -169,7 +171,7 @@ Provide farmers with a single place to access essential farming tools and inform
 ### Dashboard Layout
 
 **Top Navigation**
-- KisanSaathi logo.
+- FarmAura logo.
 - Dashboard.
 - Crop Tools.
 - Buyer Offers.
@@ -395,24 +397,26 @@ The seller interface should be visually consistent with the farmer dashboard whi
 
 ---
 
-## 8. Persistent AI Chatbot
+## 8. SOILY Soil and Farming Assistant
 
 ### Purpose
 
-Provide an AI farming assistant that remains available throughout the website.
+**Role:** FarmAura's intelligent soil and farming assistant—friendly, practical, patient, and farmer-focused. The current frontend includes scripted demo replies only; no AI model, soil test, live weather, or verified scheme service is connected.
 
 ### Interface
 
 - Floating chatbot button at the bottom-right corner.
+- Prominent SOILY name and a small seed-inspired visual mark.
 - Opens into a compact chat panel.
 - Expands on desktop when more space is available.
-- Full-screen or near-full-screen panel on mobile.
+- Fits the mobile viewport without obscuring the dashboard's key controls.
 - Text input and send button.
-- Microphone input when supported.
 - Suggested question chips.
 
 ### Example Questions
 
+- "How can I check my soil health?"
+- "What information do you need to discuss crop symptoms?"
 - "How much water might my crop need?"
 - "Explain this fertilizer calculation."
 - "How do I compare these buyer offers?"
@@ -421,14 +425,12 @@ Provide an AI farming assistant that remains available throughout the website.
 
 ### AI Behaviour
 
-- Use Gemma 4 for natural-language understanding and explanations.
-- Answer in the selected language when supported.
-- Ask follow-up questions if key information is missing.
-- Explain calculations and assumptions.
-- Use structured application data and verified sources where available.
-- Never invent live prices, current weather, scheme eligibility or guaranteed agricultural outcomes.
-- State when information is unavailable or outdated.
-- Encourage expert guidance for serious crop-health concerns.
+- Communicate in simple language with concise, actionable guidance.
+- Help with soil health, crop care, irrigation, nutrient management, calculations, harvest preparation, and agricultural schemes.
+- Ask for missing context such as crop, growth stage, location, soil type, and soil-test results.
+- Never invent soil-test results, diagnoses, live prices, weather, scheme eligibility, or guaranteed outcomes.
+- State clearly when information is unavailable; recommend a soil test or local agricultural expert for field-specific or serious concerns.
+- A future AI integration may use a configured inference runtime and verified, approved application tools. Gemma 4 and MCP are not connected in the current app.
 
 ### AI Architecture
 
@@ -442,7 +444,7 @@ The chatbot can call backend tools through a controlled service layer. If MCP is
 
 The model can use tool results to produce explanations. MCP is an optional integration layer, not the model itself.
 
-**Availability note:** The chatbot interface can remain visible on every page, but AI answers require an available inference runtime or online service. For offline use, essential crop guides and calculator functions should still work independently.
+**Availability note:** SOILY currently returns scripted demo content through the existing demo API adapter. The chatbot UI must not be described as a live AI assistant until an inference service is configured and tested.
 
 ---
 
@@ -454,16 +456,20 @@ Use an agriculture-inspired palette that feels natural, modern and trustworthy.
 
 | Token | Colour | Purpose |
 |---|---|---|
-| Primary Green | `#2E7D32` | Main buttons and active navigation |
-| Deep Green | `#174D35` | Headings and emphasis |
-| Fresh Green | `#8BC34A` | Positive states and accents |
-| Warm Cream | `#FFFDF5` | Main light-mode background |
-| Card White | `#FFFFFF` | Cards and input surfaces |
-| Earth Brown | `#795548` | Secondary agricultural accents |
-| Sunny Yellow | `#F9C74F` | Important highlights |
-| Text Dark | `#202820` | Main light-mode text |
-| Dark Background | `#121A15` | Main dark-mode background |
-| Dark Card | `#1D2921` | Dark-mode cards |
+| Deep soil brown | `#3E2723` | Selected headings, navigation, and chat header |
+| Rich earth brown | `#5D4037` | Secondary text accents and supporting details |
+| Warm clay | `#A66A4C` | Restrained earth-toned detail |
+| Terracotta accent | `#C66B45` | Focus rings and small highlights |
+| Organic olive | `#697D45` | Primary actions and selected navigation |
+| Fresh leaf green | `#7BA05B` | Positive states and restrained accents |
+| Pale sand | `#F5EBDD` | Main dashboard background |
+| Warm cream | `#FFFCF6` | Welcome background and cards |
+| Soft beige | `#E8D9C5` | Subtle borders and dividers |
+| Main text | `#29251F` | Primary light-mode text |
+| Secondary text | `#71675D` | Supporting copy |
+| White | `#FFFFFF` | Form and control surfaces |
+
+The CSS custom properties are defined in the shared `frontend/css/style.css`. Dark mode retains warm soil-brown surfaces and accessible light text.
 
 Check colour contrast in both themes. Do not communicate status through colour alone.
 
@@ -644,7 +650,7 @@ Build in the following order:
 3. Farmer and seller role-based dashboards.
 4. Harvest guidance and basic irrigation/fertilizer calculators.
 5. Seller purchase form and dummy listing comparison.
-6. Persistent AI chatbot powered by Gemma 4.
+6. SOILY assistant demo; future AI integration only after a runtime is configured and tested.
 7. Profile, language selection, voice commands and theme toggle.
 8. Offline caching and saved crop guides.
 9. Verified government-scheme information and data freshness indicators.
@@ -656,7 +662,7 @@ The first version should focus on a polished, functional demonstration rather th
 
 ## 16. Final Design Principle
 
-**KisanSaathi should help farmers make informed decisions, not overwhelm them with technology.**
+**FarmAura should help farmers make informed decisions, not overwhelm them with technology.**
 
 Every page should answer three questions:
 

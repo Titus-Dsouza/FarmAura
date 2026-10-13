@@ -34,6 +34,20 @@ window.KisanSaathi.api = {
   listings: () => config.dataMode === "demo"
     ? mockApi.getListings()
     : Promise.reject(new Error("Seller listings are not defined in the current API contract.")),
+  farmerListings: {
+    list: () => config.dataMode === "demo"
+      ? mockApi.getMyListings()
+      : Promise.reject(new Error("Farmer listing management is not defined in the current API contract.")),
+    create: (listing) => config.dataMode === "demo"
+      ? mockApi.createMyListing(listing)
+      : Promise.reject(new Error("Farmer listing management is not defined in the current API contract.")),
+    update: (id, listing) => config.dataMode === "demo"
+      ? mockApi.updateMyListing(id, listing)
+      : Promise.reject(new Error("Farmer listing management is not defined in the current API contract.")),
+    delete: (id) => config.dataMode === "demo"
+      ? mockApi.deleteMyListing(id)
+      : Promise.reject(new Error("Farmer listing management is not defined in the current API contract."))
+  },
   recentActivity: () => config.dataMode === "demo"
     ? mockApi.getRecentActivity()
     : Promise.resolve([]),

@@ -1,16 +1,24 @@
 :root {
   color-scheme: light;
-  --green: #2e7d32;
-  --green-dark: #174d35;
-  --green-fresh: #8bc34a;
-  --cream: #fffdf5;
+  --soil-deep: #3e2723;
+  --earth-rich: #5d4037;
+  --clay: #a66a4c;
+  --terracotta: #c66b45;
+  --olive: #697d45;
+  --leaf: #7ba05b;
+  --sand: #f5ebdd;
+  --cream: #fffcf6;
+  --beige: #e8d9c5;
+  --text: #29251f;
+  --muted: #71675d;
   --white: #ffffff;
-  --earth: #795548;
-  --sun: #f9c74f;
-  --text: #202820;
-  --muted: #687269;
-  --line: #e7e9df;
-  --shadow-soft: 0 14px 44px rgb(23 77 53 / 8%);
+  --green: var(--olive);
+  --green-dark: var(--soil-deep);
+  --green-fresh: var(--leaf);
+  --earth: var(--earth-rich);
+  --sun: var(--terracotta);
+  --line: var(--beige);
+  --shadow-soft: 0 14px 44px rgb(62 39 35 / 9%);
   --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -47,7 +55,7 @@ button {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 3px solid var(--sun);
+  outline: 3px solid var(--terracotta);
   outline-offset: 4px;
 }
 
@@ -190,13 +198,13 @@ a:focus-visible {
 
 .button-primary {
   background: var(--green);
-  box-shadow: 0 6px 16px rgb(46 125 50 / 18%);
+  box-shadow: 0 6px 16px rgb(105 125 69 / 18%);
   color: var(--white);
 }
 
 .button-primary:hover {
-  background: #246a29;
-  box-shadow: 0 9px 20px rgb(46 125 50 / 23%);
+  background: #586b39;
+  box-shadow: 0 9px 20px rgb(105 125 69 / 23%);
 }
 
 .button-quiet {
@@ -354,6 +362,7 @@ a:focus-visible {
 
 .hero-image-frame {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   width: 100%;
   height: 440px;
@@ -363,6 +372,8 @@ a:focus-visible {
 }
 
 .hero-image {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
@@ -370,14 +381,20 @@ a:focus-visible {
   object-position: center;
 }
 
+.hero-image[hidden] {
+  display: none;
+}
+
 .image-shade {
   position: absolute;
+  z-index: 2;
   inset: 45% 0 0;
   background: linear-gradient(transparent, rgb(15 39 24 / 68%));
 }
 
 .image-caption {
   position: absolute;
+  z-index: 3;
   right: 24px;
   bottom: 23px;
   left: 24px;
@@ -385,6 +402,18 @@ a:focus-visible {
   align-items: center;
   gap: 12px;
   color: var(--white);
+}
+
+.hero-image-frame.has-image-fallback::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 76% 23%, #f9c74f 0 7%, transparent 7.5%),
+    linear-gradient(164deg, transparent 48%, #8bc34a 48.5% 64%, transparent 64.5%),
+    linear-gradient(18deg, transparent 43%, #568c3b 43.5% 67%, transparent 67.5%),
+    linear-gradient(180deg, #dcebcf 0 42%, #789f61 42.5% 60%, #174d35 100%);
+  content: "";
 }
 
 .caption-icon {
@@ -1174,5 +1203,101 @@ a:focus-visible {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+.welcome-minimal {
+  min-height: 100vh;
+  background: var(--cream);
+}
+
+.welcome-minimal .site-header {
+  position: static;
+  border-bottom: 1px solid #e8ebe3;
+  background: var(--cream);
+  backdrop-filter: none;
+}
+
+.welcome-minimal .primary-navigation,
+.welcome-minimal .menu-toggle,
+.welcome-minimal .hero-note,
+.welcome-minimal .features-section,
+.welcome-minimal .steps-section,
+.welcome-minimal .about-section,
+.welcome-minimal .closing-cta {
+  display: none;
+}
+
+.welcome-minimal .hero {
+  min-height: calc(100vh - 79px);
+  display: grid;
+  align-items: center;
+  padding-block: 54px;
+}
+
+.welcome-minimal .hero::before,
+.welcome-minimal .visual-stamp,
+.welcome-minimal .visual-orbit {
+  display: none;
+}
+
+.welcome-minimal .hero-grid {
+  width: min(1100px, calc(100% - 48px));
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.8fr);
+  gap: clamp(36px, 7vw, 88px);
+}
+
+.welcome-minimal .hero h1 {
+  font-size: clamp(2.8rem, 5vw, 4.55rem);
+}
+
+.welcome-minimal .hero-description {
+  max-width: 460px;
+}
+
+.welcome-minimal .hero-actions {
+  margin-top: 25px;
+}
+
+.welcome-minimal .hero-image-frame {
+  height: min(54vh, 440px);
+  min-height: 310px;
+  border-radius: 130px 130px 16px 16px;
+  box-shadow: 0 16px 36px rgb(23 77 53 / 12%);
+}
+
+.welcome-minimal .site-footer {
+  border-top: 1px solid #e8ebe3;
+  background: transparent;
+}
+
+.welcome-minimal .footer-main {
+  display: none;
+}
+
+.welcome-minimal .footer-bottom {
+  justify-content: center;
+  border-top: 0;
+}
+
+@media (max-width: 740px) {
+  .welcome-minimal .hero {
+    min-height: 0;
+    padding-block: 50px 38px;
+  }
+
+  .welcome-minimal .hero-grid {
+    width: min(100% - 36px, 560px);
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .welcome-minimal .hero h1 {
+    font-size: clamp(2.8rem, 10vw, 4rem);
+  }
+
+  .welcome-minimal .hero-image-frame {
+    height: min(62vw, 350px);
+    min-height: 260px;
   }
 }
